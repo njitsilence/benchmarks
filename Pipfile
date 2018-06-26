@@ -1,0 +1,16 @@
+[[source]]
+url = "https://mirrors.aliyun.com/pypi/simple/"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+Faker = "*"
+coreapi = "*"
+
+[packages]
+Django = "~=1.11"
+Pillow = "*"
+djangorestframework = "*"
+PyMySQL = "*"
+[requires]
+python_version = "3.5"
