@@ -4,51 +4,35 @@ from .base import *
 
 DEBUG = True
 
-# APP_CENTER = {
-#     "ip": "127.0.0.1",
-#     "port": 8003
-# }
-APP_CENTER_URL = '127.0.0.1:8003'
-GET_USER_INFO_URL = 'http://127.0.0.1:8000/cmm/users/'
-BATCH_GET_USER_INFO_URL = 'http://127.0.0.1:8000/cmm/users/info_list'
-GET_USER_LIST_URL = 'http://127.0.0.1:8000/cmm/users/list'
-
-
 DATABASES = {
-    'default': {
+    'default': {},
+    'mysql': {
         # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bm',
         'USER': 'root',
         'PASSWORD': 'jj891030',
-        'HOST': '127.0.0.1',
+        'HOST': '119.29.171.154',
         'PORT': '3306',
+    },
+    'psql': {
+        # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'bm',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '119.29.171.154',
+        'PORT': '5432',
+    },
+    'mongo': {
+        # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'djongo',
+        'NAME': 'bm',
+        # 'NAME': 'bm',
+        'HOST': '119.29.171.154',
+        'PORT': 27017,
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'benchmarks',
-#         'USER': 'youdan',
-#         'PASSWORD': 'Cangmami2017',
-#         'HOST': 'rm-2ze07ui3391359lojo.mysql.rds.aliyuncs.com',
-#         'PORT': '3306',
-#     }
-# }
-
-# DATABASES = {
-#     'default': {
-#         # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'benchmarks',
-#         'USER': 'aircos',
-#         'PASSWORD': 'Aircos201710',
-#         'HOST': 'rm-2ze2id33njw5c9414o.mysql.rds.aliyuncs.com',
-#         'PORT': '3306',
-#     }
-# }
 
 GET_MATCHED_STATION_LIST_URL = \
     'http://127.0.0.1:8002/accounting/express/v1.2/warehouses/match_station_list'

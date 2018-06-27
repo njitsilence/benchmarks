@@ -12,5 +12,10 @@ Django = "~=1.11"
 Pillow = "*"
 djangorestframework = "*"
 PyMySQL = "*"
+django-cors-headers = "*"
+"psycopg2" = "*"
+djongo = "*"
+numpy = "*"
+
 [requires]
-python_version = "3.5"
+python_version = "3.6"

@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'benchmarks',
     'bm',
+    'mysql_benchmarks',
+    'psql_benchmarks',
+    'mongo_benchmarks',
 ]
 
 MIDDLEWARE = [
