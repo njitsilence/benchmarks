@@ -4,24 +4,33 @@ from .base import *
 
 DEBUG = True
 
-# APP_CENTER = {
-#     "ip": "47.95.235.167",
-#     "port": 8003
-# }
-# APP_CENTER_URL = 'test.api.open.aircos.com'
-APP_CENTER_URL = 'http://test.api.aircos.com/open'
-GET_USER_INFO_URL = 'http://test.api.aircos.com/cmm/users/'
-BATCH_GET_USER_INFO_URL = 'http://test.api.aircos.com/cmm/users/info_list'
-GET_USER_LIST_URL = 'http://test.api.aircos.com/cmm/users/list'
 DATABASES = {
-    'default': {
+    'default': {},
+    'mysql': {
         # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bm',
-        'USER': 'youdan',
-        'PASSWORD': 'Cangmami2017',
-        'HOST': 'rm-2ze07ui3391359lojo.mysql.rds.aliyuncs.com',
+        'USER': 'root',
+        'PASSWORD': 'Yishi9086',
+        'HOST': '192.168.3.85',
         'PORT': '3306',
+    },
+    'psql': {
+        # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'bm',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '192.168.3.85',
+        'PORT': '5432',
+    },
+    'mongo': {
+        # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'djongo',
+        'NAME': 'bm',
+        # 'NAME': 'bm',
+        'HOST': '192.168.3.85',
+        'PORT': 27017,
     }
 }
 

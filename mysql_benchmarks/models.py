@@ -10,7 +10,7 @@ class DevicePhotoModel(models.Model):
     id = models.BigAutoField(primary_key=True)
     # device = models.ForeignKey(DeviceInfoModel, verbose_name='设备名')
     upload_time = models.DateTimeField(default=datetime.now, verbose_name='上传时间')
-    take_photo_time = models.DateTimeField(verbose_name='抓拍时间', db_index=True)
+    take_photo_time = models.DateTimeField(default=datetime.now, verbose_name='抓拍时间', db_index=True)
     path = models.CharField(max_length=100, verbose_name='存放路径')
     label = models.IntegerField(default=-1, verbose_name='聚类特征值')
     feature = models.BinaryField(null=True, default=None, verbose_name='特征向量数组')

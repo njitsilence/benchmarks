@@ -3,16 +3,20 @@ from django.test import TestCase
 # Create your tests here.
 
 from mysql_benchmarks.models import DevicePhotoModel
-
-
-def test_connect_mysql():
-
-    res = DevicePhotoModel.objects.using('mysql').all()
-
-    return res.count()
-
+import traceback
+from time import time
+import os
+from datetime import datetime
 import pickle
 import numpy as np
+from log import Logger
+import json
+from bm.ndarry_list import ndarry_list
+# 要遍历的根目录
+rootdir = r'C:\180609'
+resulst_dir = r'C:\bm_test\mysql'
+# rootdir = r'C:\1'
+log = Logger('insert_mysql.log', level='debug')
 
 
 def read_pkl(path):
@@ -21,46 +25,73 @@ def read_pkl(path):
         with open(path, 'rb') as fp:
             array_list = pickle.load(fp, encoding='latin')
         if len(list(filter(lambda array: not isinstance(array, np.ndarray), array_list))) > 0:
-            # logger.error("Record {} has unknown data".format(path))
+            log.logger.error("Record {} has unknown data".format(path))
             array_list = []
-
     except Exception as e:
-        # logger.error("Record {} read pkl error: {}".format(path, e))
+        log.logger.error("Record {} read pkl error: {}".format(path, e))
         array_list = []
 
     return array_list
 
 
+def _mysql_process_insert(path=None, label=None, feature=None):
+    tb = time()
+    try:
+        DevicePhotoModel.objects.using('mysql').create(path=path, label=label, feature=feature)
+    except Exception as e:
+        print('插入失败，图片位置：{}'.format(path))
+        print(str(e))
+        traceback.print_exc()
+    return time() - tb
 
-import os
-from datetime import datetime
-# 要遍历的根目录
-rootdir = r'C:\180609'
 
-
-
-def insert_into_():
+def insert_into_mysql():
     i = 0
+    j = 1
+    insert_elapse_time_list = []
+    insert_elapse_time_list_all = []
+    insert_elapse_time_list_avg_per_10w = []
     # 遍历文件获取每张图片的路径
     print('开始插入mysql数据库的时间:{}'.format(datetime.now()))
-    for fpath, dirs, fs in os.walk(rootdir):
-        for f in fs:
-            if f == '0.pkl':
-                # 只处理0.pkl文件， 插入数据库
-                pkl_path=os.path.join(fpath, f)
-                # 单条insert
-                # mysql_process_insert()
+    for _ in range(10000):
+    # for fpath, dirs, fs in os.walk(rootdir):
+    #     for f in fs:
+    #         if f == '0.pkl':
+    #             # 只处理0.pkl文件， 插入数据库
+    #             pkl_path = os.path.join(fpath, f)
+        label = np.random.randint(1, 20)
+        # ndarry_list = read_pkl(pkl_path)
+        feature = pickle.dumps(ndarry_list)
+        # 单条insert
+        insert_elapse_time = _mysql_process_insert(path='path', label=label, feature=feature)
+        insert_elapse_time_list.append(insert_elapse_time)
+        insert_elapse_time_list_all.append(insert_elapse_time)
+        i += 1
+        if i % 1000 == 0:
+            fname = 'insert_elapse_time_' + str(j) + 'w'
+            fname_json = fname + '.json'
+            with open(os.path.join(resulst_dir, fname_json), 'w') as f:
+                # 每10w条记录的 平均insert时间
+                avg = np.array(insert_elapse_time_list).mean()
+                insert_elapse_time_list_avg_per_10w.append(avg)
+                res_dict = {fname: insert_elapse_time_list, 'insert_elapse_time_avg': avg}
+                f.write(json.dumps(res_dict))
+                insert_elapse_time_list = []
+                res_dict = {}
+                j += 1
+            print('已完成插入{}条数据----'.format(i))
+    with open(os.path.join(resulst_dir, 'all_results.json'), 'w') as f:
+        res_dict_all = {'insert_elapse_time_list': insert_elapse_time_list_all,
+                        'insert_elapse_time_list_avg_per_10w': insert_elapse_time_list_avg_per_10w}
+        f.write(json.dumps(res_dict_all))
 
 
-
-
-            i += 1
+    # log.logger.info('insert_elapse_time_list：{}'.format(insert_elapse_time_list))
     print('结束插入mysql数据库的时间:{}, 一共插入{}条记录'.format(datetime.now(), i))
 
 
 
-def mysql_process_insert():
-    return 123
+
 
 
 

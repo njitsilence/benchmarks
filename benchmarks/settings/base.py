@@ -126,19 +126,21 @@ STATIC_URL = '/static/'
 
 
 project_name = 'benchmarks'
-env1 = os.environ.get("BM_ENV", None)
+env1 = os.environ.get("bm_env", None)
 if env1 is None:
     import sys
     sys.path.append("..")
     sys.path.append("../..")
     try:
-        from env import BM_ENV
-        env = BM_ENV
+        from env import bm_env
+        env = bm_env
     except Exception as e:
         env = "local"
 else:
     env = env1
+env = 'test'
 print(project_name + ' env=' + env)
+
 
 if env == "product":
     # print('use product settings')
