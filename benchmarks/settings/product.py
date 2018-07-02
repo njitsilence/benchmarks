@@ -2,78 +2,87 @@
 
 from .base import *
 
-DEBUG = False
+DEBUG = True
 
-# APP_CENTER = {
-#     "ip": "47.95.235.167",
-#     "port": 8003
-# }
-# APP_CENTER_URL = 'api.open.aircos.com'
-APP_CENTER_URL = 'https://api.aircos.com/open'
-GET_USER_INFO_URL = 'https://api.aircos.com/cmm/users/'
-BATCH_GET_USER_INFO_URL = 'http://api.aircos.com/cmm/users/info_list'
-GET_USER_LIST_URL = 'https://api.aircos.com/cmm/users/list'
 DATABASES = {
-    'default': {
+    'default': {},
+    'mysql': {
         # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bm',
-        'USER': 'aircos',
-        'PASSWORD': 'Aircos201710',
-        # 'HOST': 'rm-2ze2id33njw5c9414.mysql.rds.aliyuncs.com',
-        'HOST': 'rm-2zei290y0jssy27y5po.mysql.rds.aliyuncs.com',
+        'USER': 'root',
+        'PASSWORD': 'mysql123',
+        'HOST': '192.168.3.99',
         'PORT': '3306',
+    },
+    'psql': {
+        # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'bm',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '192.168.3.99',
+        'PORT': '5432',
+    },
+    'mongo': {
+        # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'djongo',
+        'NAME': 'bm',
+        # 'NAME': 'bm',
+        'HOST': '192.168.3.99',
+        'PORT': 27017,
     }
 }
 
 GET_MATCHED_STATION_LIST_URL = \
-    'https://api.aircos.com/accounting/express/v1.2/warehouses/match_station_list'
+    'http://test.api.aircos.com/accounting/express/v1.2/warehouses/match_station_list'
 GET_STATION_INFO_URL = \
-    'https://api.aircos.com/accounting/express/v1.2/stations/'
+    'http://test.api.aircos.com/accounting/express/v1.2/stations/'
 
 REDIS_CONFIG = {
     # orderjob任务队列
     'orderjob': {
-        'REDIS_HOST': '127.0.0.1',
-        'REDIS_PORT': 6379,
+        # 'REDIS_HOST': '47.95.235.167',
+        'REDIS_HOST': "127.0.0.1",
+        'REDIS_PORT': 7218,
         'REDIS_DB': '0',
-        'REDIS_PASSWORD': ''
+        'REDIS_PASSWORD': "YcMi@7@lVroX@d6ewmE+@83o3Cj#rf"
     },
     'raw_order': {
-        'REDIS_HOST': '127.0.0.1',
-        'REDIS_PORT': 6379,
+        'REDIS_HOST': "127.0.0.1",
+        'REDIS_PORT': 7218,
         'REDIS_DB': '1',
-        'REDIS_PASSWORD': ''
+        'REDIS_PASSWORD': "YcMi@7@lVroX@d6ewmE+@83o3Cj#rf"
     },
     'log_server': {
-        'REDIS_HOST': '127.0.0.1',
-        'REDIS_PORT': 6379,
+        'REDIS_HOST': "127.0.0.1",
+        'REDIS_PORT': 7218,
         'REDIS_DB': '2',
-        'REDIS_PASSWORD': ''
+        'REDIS_PASSWORD': "YcMi@7@lVroX@d6ewmE+@83o3Cj#rf"
     },
     'default': {
-        'REDIS_HOST': '127.0.0.1',
-        'REDIS_PORT': 6379,
+        'REDIS_HOST': "127.0.0.1",
+        'REDIS_PORT': 7218,
         'REDIS_DB': '3',
-        'REDIS_PASSWORD': ""
+        'REDIS_PASSWORD': "YcMi@7@lVroX@d6ewmE+@83o3Cj#rf"
     },
     'user': {
-        'REDIS_HOST': '127.0.0.1',
-        'REDIS_PORT': 6379,
+        'REDIS_HOST': "test.xbmhz.com",
+        'REDIS_PORT': 7218,
         'REDIS_DB': '4',
-        'REDIS_PASSWORD': ""
+        'REDIS_PASSWORD': "YcMi@7@lVroX@d6ewmE+@83o3Cj#rf"
     },
-
 }
+
 MQ_CONFIG = {
     'log_server': {
-        'HOST': "39.106.175.187",
+        'HOST': "47.94.102.146",
         'PORT': 5672,
         'USERNAME': 'benchmarks',
         'PASSWORD': "cmmpassword"
     },
     'default': {
-        'SERVER': '39.106.175.187',
+        'SERVER': '47.94.102.146',
         'PORT': 5762,
         'VHOST': '/',
         'USER': 'benchmarks',

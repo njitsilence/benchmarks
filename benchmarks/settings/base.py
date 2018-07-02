@@ -138,7 +138,7 @@ if env1 is None:
         env = "local"
 else:
     env = env1
-env = 'test'
+env = 'product'
 print(project_name + ' env=' + env)
 
 
